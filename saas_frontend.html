@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlgoTrade Pro - Automated Crypto Trading Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-text {
+            background: linear-gradient(to right, #4f46e5, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-bg {
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%234f46e5' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <i class="fas fa-robot text-indigo-600 text-2xl mr-2"></i>
+                    <span class="font-bold text-xl text-gray-900">AlgoTrade Pro</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#features" class="text-gray-600 hover:text-indigo-600">Features</a>
+                    <a href="#pricing" class="text-gray-600 hover:text-indigo-600">Pricing</a>
+                    <a href="#testimonials" class="text-gray-600 hover:text-indigo-600">Testimonials</a>
+                    <button onclick="openModal('loginModal')" class="text-indigo-600 font-medium hover:text-indigo-800">Log in</button>
+                    <button onclick="openModal('registerModal')" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition">Get Started</button>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button class="text-gray-600 hover:text-gray-900 focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 bg-white hero-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-5xl md:text-6xl font-extrabold text-gray-900 mb-6">
+                Automate Your Crypto Trading <br>
+                <span class="gradient-text">While You Sleep</span>
+            </h1>
+            <p class="text-xl text-gray-600 mb-10 max-w-3xl mx-auto">
+                Connect your favorite exchanges, choose from proven strategies, or build your own. 
+                Start trading automatically in minutes. No coding required.
+            </p>
+            <div class="flex justify-center space-x-4">
+                <button onclick="openModal('registerModal')" class="bg-indigo-600 text-white px-8 py-4 rounded-lg text-lg font-medium hover:bg-indigo-700 transition shadow-lg transform hover:-translate-y-1">
+                    Start Free Trial
+                </button>
+                <a href="#demo" class="bg-white text-gray-700 border border-gray-300 px-8 py-4 rounded-lg text-lg font-medium hover:bg-gray-50 transition">
+                    View Demo
+                </a>
+            </div>
+            <div class="mt-16 relative mx-auto max-w-5xl">
+                <div class="bg-gray-900 rounded-xl shadow-2xl p-2">
+                    <img src="https://placehold.co/1200x600/1f2937/ffffff?text=Trading+Dashboard+Preview" alt="Dashboard" class="rounded-lg w-full">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Everything You Need to Trade Like a Pro</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Our platform provides institutional-grade tools for retail traders.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-10">
+                <!-- Feature 1 -->
+                <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition border border-gray-100">
+                    <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-6 text-indigo-600">
+                        <i class="fas fa-bolt text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Instant Execution</h3>
+                    <p class="text-gray-600">Lightning-fast trade execution across 15+ major exchanges including Binance, Coinbase, and Kraken.</p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition border border-gray-100">
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-6 text-green-600">
+                        <i class="fas fa-chart-line text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Proven Strategies</h3>
+                    <p class="text-gray-600">Choose from our library of backtested strategies or build your own using our visual editor.</p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition border border-gray-100">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-6 text-purple-600">
+                        <i class="fas fa-shield-alt text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Bank-Grade Security</h3>
+                    <p class="text-gray-600">Your funds stay on your exchange. We use encrypted API keys to execute trades securely.</p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition border border-gray-100">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6 text-blue-600">
+                        <i class="fas fa-bell text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Smart Alerts</h3>
+                    <p class="text-gray-600">Get notified instantly via Telegram, Email, or SMS when key market events occur.</p>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition border border-gray-100">
+                    <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mb-6 text-yellow-600">
+                        <i class="fas fa-history text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Powerful Backtesting</h3>
+                    <p class="text-gray-600">Test your strategies against historical data before risking real money.</p>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition border border-gray-100">
+                    <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-6 text-red-600">
+                        <i class="fas fa-users text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Copy Trading</h3>
+                    <p class="text-gray-600">Follow top-performing traders and automatically copy their moves in real-time.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Simple, Transparent Pricing</h2>
+                <p class="text-lg text-gray-600">Start for free, upgrade as you grow.</p>
+                
+                <!-- Monthly/Yearly Toggle -->
+                <div class="mt-6 flex justify-center items-center">
+                    <span class="text-gray-600 font-medium mr-3">Monthly</span>
+                    <div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+                        <input type="checkbox" name="toggle" id="toggle" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer transition-transform duration-200 ease-in-out translate-x-0 checked:translate-x-6 border-gray-300 checked:border-indigo-600"/>
+                        <label for="toggle" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer checked:bg-indigo-600"></label>
+                    </div>
+                    <span class="text-gray-600 font-medium ml-1">Yearly <span class="text-green-500 text-sm font-bold ml-1">-20%</span></span>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-8">
+                <!-- Free Tier -->
+                <div class="border border-gray-200 rounded-2xl p-8 hover:border-indigo-300 transition">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Free</h3>
+                    <div class="text-4xl font-bold text-gray-900 mb-6">$0<span class="text-lg text-gray-500 font-normal">/mo</span></div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center text-gray-600"><i class="fas fa-check text-green-500 mr-3"></i> 50 Trades/mo</li>
+                        <li class="flex items-center text-gray-600"><i class="fas fa-check text-green-500 mr-3"></i> 2 Active Bots</li>
+                        <li class="flex items-center text-gray-600"><i class="fas fa-check text-green-500 mr-3"></i> Paper Trading</li>
+                        <li class="flex items-center text-gray-600"><i class="fas fa-check text-green-500 mr-3"></i> Standard Support</li>
+                    </ul>
+                    <button onclick="openModal('registerModal')" class="w-full py-3 rounded-lg border-2 border-gray-200 text-gray-700 font-medium hover:border-indigo-600 hover:text-indigo-600 transition">Get Started</button>
+                </div>
+
+                <!-- Starter Tier -->
+                <div class="border border-gray-200 rounded-2xl p-8 hover:border-indigo-300 transition bg-gray-50">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Starter</h3>
+                    <div class="text-4xl font-bold text-gray-900 mb-6">$29<span class="text-lg text-gray-500 font-normal">/mo</span></div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center text-gray-600"><i class="fas fa-check text-green-500 mr-3"></i> 200 Trades/mo</li>
+                        <li class="flex items-center text-gray-600"><i class="fas fa-check text-green-500 mr-3"></i> 5 Active Bots</li>
+                        <li class="flex items-center text-gray-600"><i class="fas fa-check text-green-500 mr-3"></i> Live Trading</li>
+                        <li class="flex items-center text-gray-600"><i class="fas fa-check text-green-500 mr-3"></i> TradingView Alerts</li>
+                    </ul>
+                    <button onclick="openModal('registerModal')" class="w-full py-3 rounded-lg bg-indigo-600 text-white font-medium hover:bg-indigo-700 transition">Subscribe</button>
+                </div>
+
+                <!-- Pro Tier -->
+                <div class="border-2 border-indigo-600 rounded-2xl p-8 relative shadow-xl transform md:-translate-y-4 bg-white">
+                    <div class="absolute top-0 right-0 bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">MOST POPULAR</div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Pro</h3>
+                    <div class="text-4xl font-bold text-gray-900 mb-6">$99<span class="text-lg text-gray-500 font-normal">/mo</span></div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center text-gray-600"><i class="fas fa-check text-green-500 mr-3"></i> 1,000 Trades/mo</li>
+                        <li class="flex items-center text-gray-600"><i class="fas fa-check text-green-500 mr-3"></i> 20 Active Bots</li>
+                        <li class="flex items-center text-gray-600"><i class="fas fa-check text-green-500 mr-3"></i> Portfolio Sync</li>
+                        <li class="flex items-center text-gray-600"><i class="fas fa-check text-green-500 mr-3"></i> Backtesting Engine</li>
+                        <li class="flex items-center text-gray-600"><i class="fas fa-check text-green-500 mr-3"></i> Priority Support</li>
+                    </ul>
+                    <button onclick="openModal('registerModal')" class="w-full py-3 rounded-lg bg-indigo-600 text-white font-medium hover:bg-indigo-700 transition shadow-lg">Start Free Trial</button>
+                </div>
+
+                <!-- Enterprise Tier -->
+                <div class="border border-gray-200 rounded-2xl p-8 hover:border-indigo-300 transition">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Enterprise</h3>
+                    <div class="text-4xl font-bold text-gray-900 mb-6">$299<span class="text-lg text-gray-500 font-normal">/mo</span></div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center text-gray-600"><i class="fas fa-check text-green-500 mr-3"></i> Unlimited Trades</li>
+                        <li class="flex items-center text-gray-600"><i class="fas fa-check text-green-500 mr-3"></i> Unlimited Bots</li>
+                        <li class="flex items-center text-gray-600"><i class="fas fa-check text-green-500 mr-3"></i> API Access</li>
+                        <li class="flex items-center text-gray-600"><i class="fas fa-check text-green-500 mr-3"></i> White Label Option</li>
+                        <li class="flex items-center text-gray-600"><i class="fas fa-check text-green-500 mr-3"></i> Dedicated Manager</li>
+                    </ul>
+                    <button onclick="openModal('registerModal')" class="w-full py-3 rounded-lg border-2 border-gray-200 text-gray-700 font-medium hover:border-indigo-600 hover:text-indigo-600 transition">Contact Sales</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-robot text-indigo-500 text-2xl mr-2"></i>
+                        <span class="font-bold text-xl">AlgoTrade Pro</span>
+                    </div>
+                    <p class="text-gray-400 max-w-xs">
+                        The leading automated trading platform for crypto enthusiasts and professional traders.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Platform</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">Features</a></li>
+                        <li><a href="#" class="hover:text-white">Pricing</a></li>
+                        <li><a href="#" class="hover:text-white">Strategies</a></li>
+                        <li><a href="#" class="hover:text-white">Exchanges</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Company</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">About Us</a></li>
+                        <li><a href="#" class="hover:text-white">Blog</a></li>
+                        <li><a href="#" class="hover:text-white">Careers</a></li>
+                        <li><a href="#" class="hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">&copy; 2023 AlgoTrade Pro. All rights reserved.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-discord"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-xl shadow-2xl max-w-md w-full mx-4 overflow-hidden">
+            <div class="p-8">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900">Welcome Back</h2>
+                    <button onclick="closeModal('loginModal')" class="text-gray-400 hover:text-gray-600">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <form id="loginForm">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+                            Email Address
+                        </label>
+                        <input class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-indigo-500" id="email" type="email" placeholder="you@example.com">
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+                            Password
+                        </label>
+                        <input class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline focus:border-indigo-500" id="password" type="password" placeholder="******************">
+                    </div>
+                    <div class="flex items-center justify-between mb-6">
+                        <button class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded focus:outline-none focus:shadow-outline w-full transition" type="button" onclick="handleLogin()">
+                            Sign In
+                        </button>
+                    </div>
+                    <div class="text-center text-sm text-gray-600">
+                        Don't have an account? <a href="#" onclick="closeModal('loginModal'); openModal('registerModal')" class="text-indigo-600 font-bold">Sign up</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-xl shadow-2xl max-w-md w-full mx-4 overflow-hidden">
+            <div class="p-8">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900">Create Account</h2>
+                    <button onclick="closeModal('registerModal')" class="text-gray-400 hover:text-gray-600">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <form id="registerForm">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="reg-name">
+                            Full Name
+                        </label>
+                        <input class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-indigo-500" id="reg-name" type="text" placeholder="John Doe">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="reg-email">
+                            Email Address
+                        </label>
+                        <input class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-indigo-500" id="reg-email" type="email" placeholder="you@example.com">
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="reg-password">
+                            Password
+                        </label>
+                        <input class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline focus:border-indigo-500" id="reg-password" type="password" placeholder="******************">
+                    </div>
+                    <div class="flex items-center justify-between mb-6">
+                        <button class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded focus:outline-none focus:shadow-outline w-full transition" type="button" onclick="handleRegister()">
+                            Create Account
+                        </button>
+                    </div>
+                    <div class="text-center text-sm text-gray-600">
+                        Already have an account? <a href="#" onclick="closeModal('registerModal'); openModal('loginModal')" class="text-indigo-600 font-bold">Log in</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal Logic
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+            document.getElementById(modalId).classList.add('flex');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+            document.getElementById(modalId).classList.remove('flex');
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('fixed')) {
+                event.target.classList.add('hidden');
+                event.target.classList.remove('flex');
+            }
+        }
+
+        // API Interaction Mockup
+        async function handleLogin() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            try {
+                const response = await fetch('http://localhost:5000/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    localStorage.setItem('token', data.access_token);
+                    alert('Login successful! Redirecting to dashboard...');
+                    // Redirect to dashboard page (not implemented in this single file demo)
+                } else {
+                    alert('Login failed: ' + data.error);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                // For demo purposes, show success if backend isn't running
+                alert('Demo Mode: Login successful! (Backend connection failed)');
+            }
+        }
+
+        async function handleRegister() {
+            const username = document.getElementById('reg-name').value;
+            const email = document.getElementById('reg-email').value;
+            const password = document.getElementById('reg-password').value;
+            
+            try {
+                const response = await fetch('http://localhost:5000/api/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, email, password })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    alert('Registration successful! Please log in.');
+                    closeModal('registerModal');
+                    openModal('loginModal');
+                } else {
+                    alert('Registration failed: ' + data.error);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Demo Mode: Registration successful! (Backend connection failed)');
+            }
+        }
+    </script>
+</body>
+</html>
